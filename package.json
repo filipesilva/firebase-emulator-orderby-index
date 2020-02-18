@@ -1,0 +1,11 @@
+{
+  "name": "firebase-emulator-orderby-index",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "emulators": "yarn firebase emulators:start --project emulator-test-1"
+  },
+  "dependencies": {
+    "firebase-tools": "^7.13.1"
+  }
+}

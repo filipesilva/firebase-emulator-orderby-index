@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>firebase-emulator-test</title>
+</head>
+
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+  <script>
+    // Your web app's Firebase configuration.
+    // This must be a valid firebase app.
+    var firebaseConfig = {
+      databaseURL: "https://emulator-test-1.firebaseio.com",
+      projectId: "emulator-test-1",
+    };
+
+    // Configure use of emulators.
+    var useEmulators = false;
+    var localDbFirebaseConfig = { ...firebaseConfig };
+    if (useEmulators) {
+      localDbFirebaseConfig.databaseURL = `http://localhost:9000?ns=${firebaseConfig.projectId}`;
+    }
+    // Initialize Firebase
+    var databaseApp = firebase.initializeApp(localDbFirebaseConfig);
+    // Connect to the realtime database.
+    var db = databaseApp.database();
+
+    // Add some dinosaurs and perform an ordered query over them.
+    db.ref('dinosaurs').set({
+      "lambeosaurus": {
+        "height": 2.1,
+        "length": 12.5,
+        "weight": 5000
+      },
+      "stegosaurus": {
+        "height": 4,
+        "length": 9,
+        "weight": 2500
+      }
+    }).then(() => {
+      db.ref('dinosaurs').orderByChild('height').startAt(3).once('value').then(s => console.log(s.val()));
+    })
+  </script>
+</body>
+
+</html>

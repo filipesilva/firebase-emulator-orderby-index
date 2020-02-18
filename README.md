@@ -1,0 +1,1 @@
+Repro for https://github.com/firebase/firebase-tools/issues/1980
